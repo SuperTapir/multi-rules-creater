@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+  .conditionFilterContainer {
+    margin: 70px 70px 0 0;
+    .conditionLine {
+      display: flex;
+      width: 300px;
+      justify-content: space-around;
+    }
+    .childrenConditionContainer {
+      padding-left: 70px;
+    }
+  }
+}
