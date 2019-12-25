@@ -84,6 +84,12 @@ export default function MultiConditionFilter({
     <div>
       <div className={styles.container}>
         <div className={styles.conditionFilterContainer}>
+          <div className={styles.addBtn}>
+            <Button block icon="plus" type="primary" onClick={() => handleAddItemInSameLayer()}>
+              添加
+            </Button>
+          </div>
+
           <ConditionLine
             mapIndexArr={[]}
             dataSource={filterData}
@@ -93,9 +99,7 @@ export default function MultiConditionFilter({
             handleUpdateData={handleUpdateDataCommon}
           ></ConditionLine>
         </div>
-        <Button onClick={() => handleAddItemInSameLayer()}>添加</Button>
       </div>
-      <pre>state = {JSON.stringify(filterData, null, 4)}</pre>
     </div>
   );
 }

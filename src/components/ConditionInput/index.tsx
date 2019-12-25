@@ -16,6 +16,7 @@ export default function ConditionInput({ valueGroup, handleChange }: { valueGrou
   return (
     <div className={styles.conditionInput}>
       <Select
+        className={styles.select}
         showSearch
         value={field}
         style={{ width: 200 }}
@@ -31,6 +32,7 @@ export default function ConditionInput({ valueGroup, handleChange }: { valueGrou
         ))}
       </Select>
       <Select
+        className={styles.select}
         showSearch
         mode="multiple"
         value={params}

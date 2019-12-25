@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MultiConditionFilter from './components/MultiConditionFilter/';
+import './App.scss'
 
 const App: React.FC = () => {
   const [filterData, setFilterData] = useState<FilterRulesRelation>({
@@ -31,6 +32,7 @@ const App: React.FC = () => {
   });
   return (
     <div className="App">
+      <h1>神策多条件筛选 Demo</h1>
       <MultiConditionFilter data={filterData} setData={setFilterData} layerNum={1}></MultiConditionFilter>
     </div>
   );
