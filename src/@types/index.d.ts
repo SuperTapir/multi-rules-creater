@@ -1,7 +1,3 @@
-interface MultiConditionFilterData {
-  data: any;
-  children: Array<MultiConditionFilterData>;
-}
 
 interface ConditionValue {
   field: string;
@@ -9,3 +5,17 @@ interface ConditionValue {
 }
 
 type MultiConditionFilterDataArr = Array<MultiConditionFilterData>;
+
+interface FilterRules {
+  type: 'profile_rule';
+  field: string;
+  params: any[];
+}
+
+interface FilterRulesRelation {
+  type: 'rules_relation';
+  relation: 'and' | 'or';
+  rules: Array<FilterRules | FilterRulesRelation>;
+}
+
+

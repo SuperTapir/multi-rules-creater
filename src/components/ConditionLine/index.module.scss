@@ -1,8 +1,17 @@
 .conditionLine {
   display: flex;
-  width: 300px;
   justify-content: space-around;
 }
-.childrenConditionContainer {
-  padding-left: 70px;
+.rulesRelationContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+  border-left: 2px solid palevioletred;
+  .relation {
+    padding: 40px 10px;
+  }
+  .addInSameLayerBtn {
+    align-self: flex-start;
+  }
 }
