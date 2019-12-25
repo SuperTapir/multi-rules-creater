@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import MultiConditionFilter from './components/MultiConditionFilter/';
-import './App.scss'
+import MultiRulesCreater from './components/MultiRulesCreater/';
+import './App.scss';
 
 const App: React.FC = () => {
-  const [filterData, setFilterData] = useState<FilterRulesRelation>({
+  const [filterData, setFilterData] = useState<RulesRelation>({
     type: 'rules_relation',
     relation: 'and',
     rules: [
@@ -32,8 +32,8 @@ const App: React.FC = () => {
   });
   return (
     <div className="App">
-      <h1>神策多条件筛选 Demo</h1>
-      <MultiConditionFilter data={filterData} setData={setFilterData} layerNum={1}></MultiConditionFilter>
+      <h1>神策综合规则生成 Demo</h1>
+      <MultiRulesCreater dataSource={filterData} setDataSource={setFilterData} layerNum={1}></MultiRulesCreater>
     </div>
   );
 };

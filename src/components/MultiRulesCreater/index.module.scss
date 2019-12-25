@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
 
-  .conditionFilterContainer {
+  .multiRulesCreaterContainer {
     display: flex;
     flex-flow: column nowrap;
     margin-top: 20px;
@@ -13,9 +13,6 @@
     .addBtn {
       align-self: flex-end;
       width: 100px;
-    }
-    .childrenConditionContainer {
-      padding-left: 70px;
     }
   }
 }
