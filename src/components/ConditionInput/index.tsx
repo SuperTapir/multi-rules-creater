@@ -10,7 +10,6 @@ export default function ConditionInput({ valueGroup, handleChange }: { valueGrou
   const { field, params } = valueGroup;
 
   function onChange(value: Object) {
-    console.log(`selected ${value}`);
     handleChange({ ...valueGroup, ...value });
   }
 
@@ -36,7 +35,7 @@ export default function ConditionInput({ valueGroup, handleChange }: { valueGrou
         mode="multiple"
         value={params}
         style={{ width: 200 }}
-        placeholder="Select a person"
+        placeholder="Select a value"
         optionFilterProp="children"
         onChange={(val: any) => onChange({ params: val })}
         filterOption={(input: string, option: any) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}

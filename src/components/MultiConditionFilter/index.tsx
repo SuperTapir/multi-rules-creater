@@ -10,61 +10,90 @@ export default function MultiConditionFilter({
   setData: setFilterData,
   layerNum = 2,
 }: {
-  data: MultiConditionFilterDataArr;
+  data: FilterRulesRelation;
   setData: Function;
   layerNum?: number;
 }) {
-  const addItem = () => {
-    let temp = filterData.slice();
-    temp.push({
-      data: {
-        field: 'viplevel',
+  const handleAddItemInSameLayer = (indexArr: number[] = []) => {
+    let tempRules = filterData.rules.slice();
+    // 如果是最外层
+    if (indexArr.length <= 1) {
+      tempRules.push({
+        type: 'profile_rule',
+        field: 'province',
+        params: [],
+      });
+    } else {
+      let innerTemp = indexArr.slice(1, -1).reduce((pre: any, cur: any) => {
+        return pre.rules[cur];
+      }, tempRules[indexArr[0]]);
+      console.log(innerTemp);
+      innerTemp.rules.push({
+        type: 'profile_rule',
+        field: 'province',
+        params: [],
+      });
+    }
+
+    setFilterData({ ...filterData, rules: tempRules });
+  };
+
+  const handleAddItemPromote = (indexArr: number[] = []) => {
+    let tempRules = filterData.rules.slice();
+    let innerTemp = indexArr.slice(1).reduce((pre: any, cur: any) => {
+      return pre.rules[cur];
+    }, tempRules[indexArr[0]]);
+
+    // 改变为 FilterRulesRelation
+    let innerTempCopy = { ...innerTemp };
+    delete (innerTemp as FilterRules).field;
+    delete (innerTemp as FilterRules).params;
+    (innerTemp as FilterRulesRelation).type = 'rules_relation';
+    (innerTemp as FilterRulesRelation).relation = 'and';
+    (innerTemp as FilterRulesRelation).rules = [
+      innerTempCopy,
+      {
+        type: 'profile_rule',
+        field: 'province',
         params: [],
       },
-      children: [],
-    });
-    setFilterData(temp);
+    ];
+    setFilterData({ ...filterData, rules: tempRules });
   };
-  const handleAddCommon = (indexArr: number[]) => {
-    let temp = filterData.slice();
-    let innerTemp = indexArr.slice(1).reduce((pre: any, cur: any) => {
-      return pre.children[cur];
-    }, temp[indexArr[0]]);
-    innerTemp.children.push({
-      data: {
-        field: 'viplevel',
-        params: [],
-      },
-      children: [],
-    });
-    setFilterData(temp);
-  };
-  const handleUpdateDataCommon = (indexArr: number[], value: ConditionValue) => {
-    let temp = filterData.slice();
-    let innerTemp = indexArr.slice(1).reduce((pre: any, cur: any) => {
-      return pre.children[cur];
-    }, temp[indexArr[0]]);
-    innerTemp.data = value;
-    setFilterData(temp);
+
+  const handleUpdateDataCommon = (indexArr: number[], value: any) => {
+    let tempRules = filterData.rules.slice();
+    // 如果是最外层
+    if (indexArr.length === 0) {
+      setFilterData({ ...filterData, ...value });
+    } else {
+      let innerTemp: FilterRules | FilterRulesRelation = indexArr.slice(1).reduce((pre: any, cur: any) => {
+        return pre.rules[cur];
+      }, tempRules[indexArr[0]]);
+      if (innerTemp.type === 'profile_rule') {
+        (innerTemp as FilterRules).field = value.field;
+        (innerTemp as FilterRules).params = value.params;
+      } else if (innerTemp.type === 'rules_relation') {
+        (innerTemp as FilterRulesRelation).relation = value.relation;
+      }
+      setFilterData({ ...filterData, rules: tempRules });
+    }
   };
 
   return (
     <div>
       <div className={styles.container}>
         <div className={styles.conditionFilterContainer}>
-          {filterData.map((v, index) => (
-            <div key={index}>
-              <ConditionLine
-                mapIndexArr={[index]}
-                dataSource={v}
-                maxLayer={layerNum}
-                handleAdd={(index: number[]) => handleAddCommon(index)}
-                handleUpdateData={handleUpdateDataCommon}
-              ></ConditionLine>
-            </div>
-          ))}
+          <ConditionLine
+            mapIndexArr={[]}
+            dataSource={filterData}
+            maxLayer={layerNum}
+            handleAddPromote={(index: number[]) => handleAddItemPromote(index)}
+            handleAdd={(index: number[]) => handleAddItemInSameLayer(index)}
+            handleUpdateData={handleUpdateDataCommon}
+          ></ConditionLine>
         </div>
-        <Button onClick={addItem}>添加</Button>
+        <Button onClick={() => handleAddItemInSameLayer()}>添加</Button>
       </div>
       <pre>state = {JSON.stringify(filterData, null, 4)}</pre>
     </div>
