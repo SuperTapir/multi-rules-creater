@@ -1,12 +1,18 @@
 .container {
   display: flex;
   justify-content: center;
+
   .conditionFilterContainer {
-    margin: 70px 70px 0 0;
-    .conditionLine {
-      display: flex;
-      width: 300px;
-      justify-content: space-around;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 20px;
+    border: 1px solid #e0e6ed;
+    padding: 12px 13px;
+    width: 900px;
+    border-radius: 3px;
+    .addBtn {
+      align-self: flex-end;
+      width: 100px;
     }
     .childrenConditionContainer {
       padding-left: 70px;

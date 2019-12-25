@@ -1,15 +1,52 @@
 .conditionLine {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  .optionContainer {
+    margin-left: 20px;
+  }
 }
 .rulesRelationContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   margin: 10px 0;
-  border-left: 2px solid palevioletred;
   .relation {
-    padding: 40px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    align-self: stretch;
+    margin-right: 10px;
+    .text {
+      position: relative;
+      border-radius: 3px;
+      background: #bae7ff;
+      color: #1890ff;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 25px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      width: 20px;
+      height: 20px;
+      font-size: 13px;
+      line-height: 20px;
+      z-index: 2;
+    }
+    &::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      overflow: hidden;
+      background: #bae7ff;
+      z-index: 1;
+    }
   }
   .addInSameLayerBtn {
     align-self: flex-start;

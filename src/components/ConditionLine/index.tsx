@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Button } from 'antd';
 import ConditionInput from '../ConditionInput';
-
 import styles from './index.module.scss';
+
+import { RELATION_MAP } from '../../constant';
 
 function ConditionLine({
   dataSource,
@@ -22,19 +23,19 @@ function ConditionLine({
 }) {
   const { type } = dataSource;
   function toggleRationType() {
-    
     let currentRationType = (dataSource as FilterRulesRelation).relation;
     let nextRationType = currentRationType === 'and' ? 'or' : 'and';
-    console.log('asdfadsf', nextRationType,mapIndexArr)
+    console.log('asdfadsf', nextRationType, mapIndexArr);
     handleUpdateData(mapIndexArr, { relation: nextRationType });
   }
   return (
-    <div>
+    <>
       {type === 'rules_relation' && (
         <div className={styles.rulesRelationContainer}>
           <div className={styles.relation} onClick={toggleRationType}>
-            {(dataSource as FilterRulesRelation).relation}
+            <span className={styles.text}>{RELATION_MAP[(dataSource as FilterRulesRelation).relation]}</span>
           </div>
+
           <div className={styles.group}>
             {(dataSource as FilterRulesRelation).rules.map((rule, index) => {
               return (
@@ -60,11 +61,21 @@ function ConditionLine({
             valueGroup={{ field: (dataSource as FilterRules).field, params: (dataSource as FilterRules).params }}
             handleChange={(value: ConditionValue) => handleUpdateData(mapIndexArr, value)}
           ></ConditionInput>
-          {+maxLayer >= mapIndexArr.length && <Button onClick={() => handleAddPromote(mapIndexArr)}>添加</Button>}
-          {+maxLayer < mapIndexArr.length && <Button onClick={() => handleAdd(mapIndexArr)}>添加同层</Button>}
+          <div className={styles.optionContainer}>
+            {+maxLayer >= mapIndexArr.length && (
+              <Button size="small" icon="plus" type="primary" onClick={() => handleAddPromote(mapIndexArr)}>
+                添加
+              </Button>
+            )}
+            {+maxLayer < mapIndexArr.length && mapIndexArr[mapIndexArr.length - 1] === 0 && (
+              <Button size="small" icon="plus" type="primary" onClick={() => handleAdd(mapIndexArr)}>
+                添加同层
+              </Button>
+            )}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
