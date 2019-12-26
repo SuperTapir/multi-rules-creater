@@ -42,7 +42,7 @@ const App: React.FC = () => {
       <MultiRulesCreater dataSource={ruleData} setDataSource={setRuleData} layerNum={2}></MultiRulesCreater>
       <br />
       <Button type="primary" onClick={handleSubmit}>
-        在 Console 输出数据
+        将数据存入剪贴板
       </Button>
     </div>
   );
