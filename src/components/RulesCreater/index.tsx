@@ -6,6 +6,8 @@ import styles from './index.module.scss';
 
 import { RELATION_MAP } from '../../constant';
 
+const ButtonGroup = Button.Group;
+
 function RulesCreater({
   dataSource,
   mapIndexArr,
@@ -60,18 +62,18 @@ function RulesCreater({
             valueGroup={{ field: (dataSource as Rule).field, params: (dataSource as Rule).params }}
             handleChange={(value: ConditionValue) => handleUpdateData(mapIndexArr, value)}
           ></RuleInput>
-          <div className={styles.optionContainer}>
+          <ButtonGroup className={styles.optionContainer}>
             {+maxLayer >= mapIndexArr.length && (
-              <Button size="small" icon="plus" type="primary" onClick={() => handleAddPromote(mapIndexArr)}>
-                添加
+              <Button className={styles.btn} size="small" icon="caret-left" type="link" onClick={() => handleAddPromote(mapIndexArr)}>
+                添加内层
               </Button>
             )}
-            {+maxLayer < mapIndexArr.length && mapIndexArr[mapIndexArr.length - 1] === 0 && (
-              <Button size="small" icon="plus" type="primary" onClick={() => handleAdd(mapIndexArr)}>
+            {mapIndexArr[mapIndexArr.length - 1] === 0 && (
+              <Button className={styles.btn} size="small" icon="menu" type="link" onClick={() => handleAdd(mapIndexArr)}>
                 添加同层
               </Button>
             )}
-          </div>
+          </ButtonGroup>
         </div>
       )}
     </>

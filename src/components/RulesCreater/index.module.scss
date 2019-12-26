@@ -5,6 +5,9 @@
   margin-bottom: 8px;
   .optionContainer {
     margin-left: 20px;
+    // .btn {
+    //   margin-left: 10px;
+    // }
   }
 }
 .rulesRelationContainer {
@@ -47,8 +50,5 @@
       background: #bae7ff;
       z-index: 1;
     }
-  }
-  .addInSameLayerBtn {
-    align-self: flex-start;
   }
 }

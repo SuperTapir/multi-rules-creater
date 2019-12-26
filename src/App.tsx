@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Button } from 'antd';
+import { copy2ClipBoard } from './utils/';
 import MultiRulesCreater from './components/MultiRulesCreater/';
 import './App.scss';
 
 const App: React.FC = () => {
-  const [filterData, setFilterData] = useState<RulesRelation>({
+  const [ruleData, setRuleData] = useState<RulesRelation>({
     type: 'rules_relation',
     relation: 'and',
     rules: [
@@ -30,10 +32,18 @@ const App: React.FC = () => {
       },
     ],
   });
+  let handleSubmit = () => {
+    copy2ClipBoard(JSON.stringify(ruleData, null, 4));
+    console.log(ruleData);
+  };
   return (
     <div className="App">
       <h1>神策综合规则生成 Demo</h1>
-      <MultiRulesCreater dataSource={filterData} setDataSource={setFilterData} layerNum={1}></MultiRulesCreater>
+      <MultiRulesCreater dataSource={ruleData} setDataSource={setRuleData} layerNum={2}></MultiRulesCreater>
+      <br />
+      <Button type="primary" onClick={handleSubmit}>
+        在 Console 输出数据
+      </Button>
     </div>
   );
 };
