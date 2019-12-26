@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import MultiConditionFilter from './components/MultiConditionFilter/';
-import './App.scss'
+import { Button } from 'antd';
+import { copy2ClipBoard } from './utils/';
+import MultiRulesCreater from './components/MultiRulesCreater/';
+import './App.scss';
 
 const App: React.FC = () => {
-  const [filterData, setFilterData] = useState<FilterRulesRelation>({
+  const [ruleData, setRuleData] = useState<RulesRelation>({
     type: 'rules_relation',
     relation: 'and',
     rules: [
@@ -30,10 +32,18 @@ const App: React.FC = () => {
       },
     ],
   });
+  let handleSubmit = () => {
+    copy2ClipBoard(JSON.stringify(ruleData, null, 4));
+    console.log(ruleData);
+  };
   return (
     <div className="App">
-      <h1>神策多条件筛选 Demo</h1>
-      <MultiConditionFilter data={filterData} setData={setFilterData} layerNum={1}></MultiConditionFilter>
+      <h1>神策综合规则生成 Demo</h1>
+      <MultiRulesCreater dataSource={ruleData} setDataSource={setRuleData} layerNum={2}></MultiRulesCreater>
+      <br />
+      <Button type="primary" onClick={handleSubmit}>
+        将数据存入剪贴板
+      </Button>
     </div>
   );
 };

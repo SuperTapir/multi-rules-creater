@@ -6,7 +6,7 @@ import { TAG_TYPES } from '../../constant';
 
 const { Option } = Select;
 
-export default function ConditionInput({ valueGroup, handleChange }: { valueGroup: ConditionValue; handleChange: Function }) {
+export default function RuleInput({ valueGroup, handleChange }: { valueGroup: ConditionValue; handleChange: Function }) {
   const { field, params } = valueGroup;
 
   function onChange(value: Object) {
@@ -14,7 +14,7 @@ export default function ConditionInput({ valueGroup, handleChange }: { valueGrou
   }
 
   return (
-    <div className={styles.conditionInput}>
+    <div className={styles.ruleInput}>
       <Select
         className={styles.select}
         showSearch
