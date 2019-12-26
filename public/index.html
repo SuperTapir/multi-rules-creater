@@ -5,10 +5,7 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -24,6 +21,34 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <!-- GrowingIO Analytics code version 2.1 -->
+    <!-- Copyright 2015-2018 GrowingIO, Inc. More info available at http://www.growingio.com -->
+
+    <script type="text/javascript">
+      !(function(e, t, n, g, i) {
+        (e[i] =
+          e[i] ||
+          function() {
+            (e[i].q = e[i].q || []).push(arguments);
+          }),
+          (n = t.createElement('script')),
+          (tag = t.getElementsByTagName('script')[0]),
+          (n.async = 1),
+          (n.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + g),
+          tag.parentNode.insertBefore(n, tag);
+      })(window, document, 'script', 'assets.giocdn.com/2.1/gio.js', 'gio');
+      gio('init', 'b5c10c6bfdcb773e', {});
+
+      //custom page code begin here
+
+      //custom page code end here
+
+      gio('send');
+    </script>
+
+    <!-- End GrowingIO Analytics code version: 2.1 -->
+
     <title>React App</title>
   </head>
   <body>
