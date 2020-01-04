@@ -18,3 +18,9 @@ interface RulesRelation {
   /** 关系包含的规则 */
   rules: Array<Rule | RulesRelation>;
 }
+
+interface action {
+  type: 'ADD_A_RULE' | 'ADD_A_RULES_RELATION' | 'REMOVE_A_RULE' | 'EDIT_A_RULE' | 'TOGLE_RULES_RATION_TYPE';
+  positon: number[];
+  payload?: any;
+}

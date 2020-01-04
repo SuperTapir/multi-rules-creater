@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Button } from 'antd';
 import RuleInput from '../RuleInput';
+import { RulesDispatch } from '../../App';
+
 import styles from './index.module.scss';
 
 import { RELATION_MAP } from '../../constant';
@@ -12,28 +14,27 @@ function RulesCreater({
   dataSource,
   mapIndexArr,
   maxLayer = 2,
-  handleAdd,
-  handleAddPromote,
-  handleUpdateData,
 }: {
   dataSource: RulesRelation | Rule;
   mapIndexArr: number[];
   maxLayer?: number | string;
-  handleAdd: Function;
-  handleAddPromote: Function;
-  handleUpdateData: Function;
 }) {
   const { type } = dataSource;
-  function toggleRationType() {
-    let currentRationType = (dataSource as RulesRelation).relation;
-    let nextRationType = currentRationType === 'and' ? 'or' : 'and';
-    handleUpdateData(mapIndexArr, { relation: nextRationType });
-  }
+  const dispatch = useContext(RulesDispatch);
+
   return (
     <>
       {type === 'rules_relation' && (
         <div className={styles.rulesRelationContainer}>
-          <div className={styles.relation} onClick={toggleRationType}>
+          <div
+            className={styles.relation}
+            onClick={() => {
+              dispatch({
+                type: 'TOGLE_RULES_RATION_TYPE',
+                positon: mapIndexArr,
+              });
+            }}
+          >
             <span className={styles.text}>{RELATION_MAP[(dataSource as RulesRelation).relation]}</span>
           </div>
 
@@ -43,9 +44,6 @@ function RulesCreater({
                 <RulesCreater
                   {...{
                     maxLayer,
-                    handleAdd,
-                    handleAddPromote,
-                    handleUpdateData,
                   }}
                   key={index}
                   mapIndexArr={[...mapIndexArr, index]}
@@ -53,6 +51,20 @@ function RulesCreater({
                 ></RulesCreater>
               );
             })}
+            <Button
+              className={styles.btn}
+              size="small"
+              icon="plus"
+              type="link"
+              onClick={() =>
+                dispatch({
+                  type: 'ADD_A_RULE',
+                  positon: mapIndexArr,
+                })
+              }
+            >
+              添加
+            </Button>
           </div>
         </div>
       )}
@@ -60,19 +72,40 @@ function RulesCreater({
         <div className={styles.ruleInput}>
           <RuleInput
             valueGroup={{ field: (dataSource as Rule).field, params: (dataSource as Rule).params }}
-            handleChange={(value: ConditionValue) => handleUpdateData(mapIndexArr, value)}
+            mapIndexArr={mapIndexArr}
           ></RuleInput>
           <ButtonGroup className={styles.optionContainer}>
             {+maxLayer >= mapIndexArr.length && (
-              <Button className={styles.btn} size="small" icon="caret-left" type="link" onClick={() => handleAddPromote(mapIndexArr)}>
+              <Button
+                className={styles.btn}
+                size="small"
+                icon="caret-left"
+                type="link"
+                onClick={() =>
+                  dispatch({
+                    type: 'ADD_A_RULES_RELATION',
+                    positon: mapIndexArr,
+                  })
+                }
+              >
                 添加内层
               </Button>
             )}
-            {mapIndexArr[mapIndexArr.length - 1] === 0 && (
-              <Button className={styles.btn} size="small" icon="menu" type="link" onClick={() => handleAdd(mapIndexArr)}>
-                添加同层
-              </Button>
-            )}
+            <Button
+              className={styles.btn}
+              style={{ color: '#f5222d' }}
+              size="small"
+              icon="delete"
+              type="link"
+              onClick={() =>
+                dispatch({
+                  type: 'REMOVE_A_RULE',
+                  positon: mapIndexArr,
+                })
+              }
+            >
+              删除
+            </Button>
           </ButtonGroup>
         </div>
       )}

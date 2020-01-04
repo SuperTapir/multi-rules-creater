@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Select } from 'antd';
 
 import styles from './index.module.scss';
 import { TAG_TYPES } from '../../constant';
+import { RulesDispatch } from '../../App';
 
 const { Option } = Select;
 
-export default function RuleInput({ valueGroup, handleChange }: { valueGroup: ConditionValue; handleChange: Function }) {
+export default function RuleInput({ valueGroup, mapIndexArr }: { valueGroup: ConditionValue; mapIndexArr: number[] }) {
   const { field, params } = valueGroup;
-
+  const dispatch = useContext(RulesDispatch);
   function onChange(value: Object) {
-    handleChange({ ...valueGroup, ...value });
+    dispatch({
+      type: 'EDIT_A_RULE',
+      positon: mapIndexArr,
+      payload: value,
+    });
   }
 
   return (
@@ -22,7 +27,7 @@ export default function RuleInput({ valueGroup, handleChange }: { valueGroup: Co
         style={{ width: 200 }}
         placeholder="Select a Type"
         optionFilterProp="children"
-        onChange={(val: any) => onChange({ field: val })}
+        onChange={(val: any) => onChange({ field: val, params: [] })}
         filterOption={(input: string, option: any) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
       >
         {TAG_TYPES.common.map(v => (
