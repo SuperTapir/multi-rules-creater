@@ -7083,3 +7083,16 @@ export const RELATION_MAP = {
   and: '且',
   or: '或',
 };
+
+export const RULES_FUNCTION = [
+  {
+    name: 'equal',
+    cname: '等于',
+  },
+  {
+    name: 'unequal',
+    cname: '不等于',
+  },
+];
+
+export const RULES_VALUE = ['合肥', '北京', '杭州', '石家庄', '深圳', '上海'];

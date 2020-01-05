@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Button } from 'antd';
 import RuleInput from '../RuleInput';
+import { RulesDispatch } from '../../App';
+
 import styles from './index.module.scss';
 
 import { RELATION_MAP } from '../../constant';
@@ -10,30 +12,29 @@ const ButtonGroup = Button.Group;
 
 function RulesCreater({
   dataSource,
-  mapIndexArr,
+  positionArr,
   maxLayer = 2,
-  handleAdd,
-  handleAddPromote,
-  handleUpdateData,
 }: {
   dataSource: RulesRelation | Rule;
-  mapIndexArr: number[];
+  positionArr: number[];
   maxLayer?: number | string;
-  handleAdd: Function;
-  handleAddPromote: Function;
-  handleUpdateData: Function;
 }) {
   const { type } = dataSource;
-  function toggleRationType() {
-    let currentRationType = (dataSource as RulesRelation).relation;
-    let nextRationType = currentRationType === 'and' ? 'or' : 'and';
-    handleUpdateData(mapIndexArr, { relation: nextRationType });
-  }
+  const dispatch = useContext(RulesDispatch);
+
   return (
     <>
       {type === 'rules_relation' && (
         <div className={styles.rulesRelationContainer}>
-          <div className={styles.relation} onClick={toggleRationType}>
+          <div
+            className={styles.relation}
+            onClick={() => {
+              dispatch({
+                type: 'TOGLE_RULES_RATION_TYPE',
+                positon: positionArr,
+              });
+            }}
+          >
             <span className={styles.text}>{RELATION_MAP[(dataSource as RulesRelation).relation]}</span>
           </div>
 
@@ -43,36 +44,68 @@ function RulesCreater({
                 <RulesCreater
                   {...{
                     maxLayer,
-                    handleAdd,
-                    handleAddPromote,
-                    handleUpdateData,
                   }}
                   key={index}
-                  mapIndexArr={[...mapIndexArr, index]}
+                  positionArr={[...positionArr, index]}
                   dataSource={rule}
                 ></RulesCreater>
               );
             })}
+            <Button
+              className={styles.btn}
+              size="small"
+              icon="plus"
+              type="link"
+              onClick={() =>
+                dispatch({
+                  type: 'ADD_A_RULE',
+                  positon: positionArr,
+                })
+              }
+            >
+              添加
+            </Button>
           </div>
         </div>
       )}
       {type === 'profile_rule' && (
         <div className={styles.ruleInput}>
           <RuleInput
-            valueGroup={{ field: (dataSource as Rule).field, params: (dataSource as Rule).params }}
-            handleChange={(value: ConditionValue) => handleUpdateData(mapIndexArr, value)}
+            valueGroup={{ field: (dataSource as Rule).field, function: (dataSource as Rule).function, params: (dataSource as Rule).params }}
+            positionArr={positionArr}
           ></RuleInput>
           <ButtonGroup className={styles.optionContainer}>
-            {+maxLayer >= mapIndexArr.length && (
-              <Button className={styles.btn} size="small" icon="caret-left" type="link" onClick={() => handleAddPromote(mapIndexArr)}>
+            {+maxLayer >= positionArr.length && (
+              <Button
+                className={styles.btn}
+                size="small"
+                icon="caret-left"
+                type="link"
+                onClick={() =>
+                  dispatch({
+                    type: 'ADD_A_RULES_RELATION',
+                    positon: positionArr,
+                  })
+                }
+              >
                 添加内层
               </Button>
             )}
-            {mapIndexArr[mapIndexArr.length - 1] === 0 && (
-              <Button className={styles.btn} size="small" icon="menu" type="link" onClick={() => handleAdd(mapIndexArr)}>
-                添加同层
-              </Button>
-            )}
+            <Button
+              className={styles.btn}
+              style={{ color: '#f5222d' }}
+              size="small"
+              icon="delete"
+              type="link"
+              onClick={() =>
+                dispatch({
+                  type: 'REMOVE_A_RULE',
+                  positon: positionArr,
+                })
+              }
+            >
+              删除
+            </Button>
           </ButtonGroup>
         </div>
       )}
