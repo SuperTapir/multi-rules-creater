@@ -28,7 +28,7 @@ export default function RuleInput({ valueGroup, positionArr }: { valueGroup: Rul
         style={{ width: 200 }}
         placeholder="Select a Type"
         optionFilterProp="children"
-        onChange={(val: any) => onChange({ field: val, function: '', params: [] })}
+        onChange={(val: any) => onChange({ field: val, params: [] })}
         filterOption={(input: string, option: any) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
       >
         {TAG_TYPES.common.map(v => (
@@ -41,7 +41,7 @@ export default function RuleInput({ valueGroup, positionArr }: { valueGroup: Rul
         className={styles.select}
         showSearch
         value={func}
-        style={{ width: 200 }}
+        style={{ width: 100 }}
         placeholder="Select a function"
         optionFilterProp="children"
         onChange={(val: any) => onChange({ function: val })}
