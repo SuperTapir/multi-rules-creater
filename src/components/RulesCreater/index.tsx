@@ -7,6 +7,7 @@ import { RulesDispatch } from '../../App';
 import styles from './index.module.scss';
 
 import { RELATION_MAP } from '../../constant';
+import { isRule, isRulesRelation } from '../../utils/';
 
 const ButtonGroup = Button.Group;
 
@@ -19,12 +20,11 @@ function RulesCreater({
   positionArr: number[];
   maxLayer?: number | string;
 }) {
-  const { type } = dataSource;
   const dispatch = useContext(RulesDispatch);
 
   return (
     <>
-      {type === 'rules_relation' && (
+      {isRulesRelation(dataSource) && (
         <div className={styles.rulesRelationContainer}>
           <div
             className={styles.relation}
@@ -35,11 +35,11 @@ function RulesCreater({
               });
             }}
           >
-            <span className={styles.text}>{RELATION_MAP[(dataSource as RulesRelation).relation]}</span>
+            <span className={styles.text}>{RELATION_MAP[dataSource.relation]}</span>
           </div>
 
           <div className={styles.group}>
-            {(dataSource as RulesRelation).rules.map((rule, index) => {
+            {dataSource.rules.map((rule, index) => {
               return (
                 <RulesCreater
                   {...{
@@ -68,10 +68,10 @@ function RulesCreater({
           </div>
         </div>
       )}
-      {type === 'profile_rule' && (
+      {isRule(dataSource) && (
         <div className={styles.ruleInput}>
           <RuleInput
-            valueGroup={{ field: (dataSource as Rule).field, function: (dataSource as Rule).function, params: (dataSource as Rule).params }}
+            valueGroup={{ field: dataSource.field, function: dataSource.function, params: dataSource.params }}
             positionArr={positionArr}
           ></RuleInput>
           <ButtonGroup className={styles.optionContainer}>

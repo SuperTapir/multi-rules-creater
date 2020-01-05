@@ -36,7 +36,7 @@ const initRules: RulesRelation = {
   ],
 };
 
-export const RulesDispatch = createContext<React.Dispatch<action>>(null as unknown as React.Dispatch<action>);
+export const RulesDispatch = createContext<React.Dispatch<Action>>(null as unknown as React.Dispatch<Action>);
 
 const App: React.FC = () => {
   const [ruleData, dispatch] = useReducer(reducer, initRules);

@@ -19,7 +19,7 @@ interface RulesRelation {
   rules: Array<Rule | RulesRelation>;
 }
 
-interface action {
+interface Action {
   type: 'ADD_A_RULE' | 'ADD_A_RULES_RELATION' | 'REMOVE_A_RULE' | 'EDIT_A_RULE' | 'TOGLE_RULES_RATION_TYPE';
   positon: number[];
   payload?: any;
