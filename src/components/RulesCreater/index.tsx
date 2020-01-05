@@ -12,11 +12,11 @@ const ButtonGroup = Button.Group;
 
 function RulesCreater({
   dataSource,
-  mapIndexArr,
+  positionArr,
   maxLayer = 2,
 }: {
   dataSource: RulesRelation | Rule;
-  mapIndexArr: number[];
+  positionArr: number[];
   maxLayer?: number | string;
 }) {
   const { type } = dataSource;
@@ -31,7 +31,7 @@ function RulesCreater({
             onClick={() => {
               dispatch({
                 type: 'TOGLE_RULES_RATION_TYPE',
-                positon: mapIndexArr,
+                positon: positionArr,
               });
             }}
           >
@@ -46,7 +46,7 @@ function RulesCreater({
                     maxLayer,
                   }}
                   key={index}
-                  mapIndexArr={[...mapIndexArr, index]}
+                  positionArr={[...positionArr, index]}
                   dataSource={rule}
                 ></RulesCreater>
               );
@@ -59,7 +59,7 @@ function RulesCreater({
               onClick={() =>
                 dispatch({
                   type: 'ADD_A_RULE',
-                  positon: mapIndexArr,
+                  positon: positionArr,
                 })
               }
             >
@@ -72,10 +72,10 @@ function RulesCreater({
         <div className={styles.ruleInput}>
           <RuleInput
             valueGroup={{ field: (dataSource as Rule).field, params: (dataSource as Rule).params }}
-            mapIndexArr={mapIndexArr}
+            positionArr={positionArr}
           ></RuleInput>
           <ButtonGroup className={styles.optionContainer}>
-            {+maxLayer >= mapIndexArr.length && (
+            {+maxLayer >= positionArr.length && (
               <Button
                 className={styles.btn}
                 size="small"
@@ -84,7 +84,7 @@ function RulesCreater({
                 onClick={() =>
                   dispatch({
                     type: 'ADD_A_RULES_RELATION',
-                    positon: mapIndexArr,
+                    positon: positionArr,
                   })
                 }
               >
@@ -100,7 +100,7 @@ function RulesCreater({
               onClick={() =>
                 dispatch({
                   type: 'REMOVE_A_RULE',
-                  positon: mapIndexArr,
+                  positon: positionArr,
                 })
               }
             >

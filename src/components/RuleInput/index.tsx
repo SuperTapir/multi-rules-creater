@@ -7,13 +7,13 @@ import { RulesDispatch } from '../../App';
 
 const { Option } = Select;
 
-export default function RuleInput({ valueGroup, mapIndexArr }: { valueGroup: ConditionValue; mapIndexArr: number[] }) {
+export default function RuleInput({ valueGroup, positionArr }: { valueGroup: ConditionValue; positionArr: number[] }) {
   const { field, params } = valueGroup;
   const dispatch = useContext(RulesDispatch);
   function onChange(value: Object) {
     dispatch({
       type: 'EDIT_A_RULE',
-      positon: mapIndexArr,
+      positon: positionArr,
       payload: value,
     });
   }

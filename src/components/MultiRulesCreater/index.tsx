@@ -13,7 +13,7 @@ export default function MultiRulesCreater({ dataSource, layerNum = 2 }: { dataSo
         <div className={styles.multiRulesCreaterContainer}>
           {/* 渲染整个规则树, 通过递归 */}
           <RulesCreater
-            mapIndexArr={[]}
+            positionArr={[]}
             dataSource={dataSource}
             maxLayer={layerNum}
           ></RulesCreater>
