@@ -4,6 +4,7 @@ function apendARule2Relation(relation: RulesRelation) {
     {
       type: 'profile_rule',
       field: 'province',
+      function: 'equal',
       params: [],
     },
   ];

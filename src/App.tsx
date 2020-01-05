@@ -16,11 +16,13 @@ const initRules: RulesRelation = {
         {
           type: 'profile_rule',
           field: 'viplevel',
+          function: 'equal',
           params: ['白银'],
         },
         {
           type: 'profile_rule',
           field: '$name',
+          function: 'equal',
           params: ['李蔭晻'],
         },
       ],
@@ -28,6 +30,7 @@ const initRules: RulesRelation = {
     {
       type: 'profile_rule',
       field: 'province',
+      function: 'equal',
       params: ['河北', '安徽'],
     },
   ],

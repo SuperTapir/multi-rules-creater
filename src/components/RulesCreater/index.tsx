@@ -71,7 +71,7 @@ function RulesCreater({
       {type === 'profile_rule' && (
         <div className={styles.ruleInput}>
           <RuleInput
-            valueGroup={{ field: (dataSource as Rule).field, params: (dataSource as Rule).params }}
+            valueGroup={{ field: (dataSource as Rule).field, function: (dataSource as Rule).function, params: (dataSource as Rule).params }}
             positionArr={positionArr}
           ></RuleInput>
           <ButtonGroup className={styles.optionContainer}>
