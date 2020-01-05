@@ -35,7 +35,7 @@ function rule2Relation(rule: Rule) {
     apendARule2Relation(rule);
   }
 }
-const reducer = (state: RulesRelation, action: action) => {
+const reducer = (state: RulesRelation, action: Action) => {
   const { type, positon } = action;
   console.log(type);
   // 拿到当前位置的 Item
@@ -68,9 +68,12 @@ const reducer = (state: RulesRelation, action: action) => {
       }
       return { ...state };
     case 'EDIT_A_RULE':
-      Object.keys(action.payload).forEach((key: string) => {
-        (currentItem as any)[key] = action.payload[key];
-      });
+      if (isRulesRelation(upperItem) && isRule(currentItem)) {
+        upperItem.rules[positon[positon.length - 1]] = {
+          ...currentItem,
+          ...action.payload as Partial<Rule>
+        }
+      }
       return { ...state };
     case 'TOGLE_RULES_RATION_TYPE':
       if (isRulesRelation(currentItem)) {

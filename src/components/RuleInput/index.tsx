@@ -10,7 +10,8 @@ const { Option } = Select;
 export default function RuleInput({ valueGroup, positionArr }: { valueGroup: RulesValue; positionArr: number[] }) {
   const { field, function: func, params } = valueGroup;
   const dispatch = useContext(RulesDispatch);
-  function onChange(value: Object) {
+  function onChange(value: Partial<RulesValue>) {
+    console.log(value)
     dispatch({
       type: 'EDIT_A_RULE',
       positon: positionArr,

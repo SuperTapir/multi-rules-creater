@@ -11,9 +11,9 @@ export function copy2ClipBoard(str: string) {
 }
 
 export function isRulesRelation(item: Rule | RulesRelation): item is RulesRelation {
-  return (<RulesRelation>item).type === 'rules_relation';
+  return (item as RulesRelation).type === 'rules_relation';
 }
 
 export function isRule(item: Rule | RulesRelation): item is Rule {
-  return (<Rule>item).type === 'profile_rule';
+  return (item as Rule).type === 'profile_rule';
 }
