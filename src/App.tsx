@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from 'react';
 import { Button } from 'antd';
 import { copy2ClipBoard } from './utils/';
-import MultiRulesCreater from './components/MultiRulesCreater/';
+import MultiRulesCreator from './components/MultiRulesCreator/';
 import reducer from './reducer';
 import './App.scss';
 
@@ -48,7 +48,7 @@ const App: React.FC = () => {
     <div className="App">
       <h1>神策综合规则生成 Demo</h1>
       <RulesDispatch.Provider value={dispatch}>
-        <MultiRulesCreater dataSource={ruleData} layerNum={2}></MultiRulesCreater>
+        <MultiRulesCreator dataSource={ruleData} layerNum={2}></MultiRulesCreator>
       </RulesDispatch.Provider>
       <br />
       <Button type="primary" onClick={handleSubmit}>

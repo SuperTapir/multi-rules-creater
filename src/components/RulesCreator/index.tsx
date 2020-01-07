@@ -7,11 +7,11 @@ import { RulesDispatch } from '../../App';
 import styles from './index.module.scss';
 
 import { RELATION_MAP } from '../../constant';
-import { isRule, isRulesRelation } from '../../utils/';
+import { isRule, isRulesRelation } from '../../utils';
 
 const ButtonGroup = Button.Group;
 
-function RulesCreater({
+function RulesCreator({
   dataSource,
   positionArr,
   maxLayer = 2,
@@ -41,14 +41,14 @@ function RulesCreater({
           <div className={styles.group}>
             {dataSource.rules.map((rule, index) => {
               return (
-                <RulesCreater
+                <RulesCreator
                   {...{
                     maxLayer,
                   }}
                   key={index}
                   positionArr={[...positionArr, index]}
                   dataSource={rule}
-                ></RulesCreater>
+                ></RulesCreator>
               );
             })}
             <Button
@@ -113,4 +113,4 @@ function RulesCreater({
   );
 }
 
-export default RulesCreater;
+export default RulesCreator;
