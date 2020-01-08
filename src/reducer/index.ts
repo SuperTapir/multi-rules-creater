@@ -21,6 +21,7 @@ function relation2Rule(relation: RulesRelation) {
   ((relation as unknown) as Rule).type = 'profile_rule';
   if (isRule(relation) && isRule(temp)) {
     relation.field = temp.field;
+    relation.function = temp.function;
     relation.params = temp.params;
   }
 }
